@@ -1,0 +1,37 @@
+# ============================================================
+# House Price Prediction — Konfigurasi Pipeline
+# ============================================================
+
+data:
+  raw_path: "data/raw/HousePricePrediction.xlsx"
+  train_processed: "data/processed/train_cleaned.csv"
+  test_processed:  "data/processed/test_cleaned.csv"
+  target_column: "SalePrice"
+  id_column: "Id"
+
+preprocessing:
+  test_size: 0.2
+  random_state: 42
+  outlier_method: "IQR"   # "IQR" | "zscore"
+  keep_outliers: true      # true = outlier dipertahankan
+
+models:
+  random_forest:
+    n_estimators: 200
+    max_depth: null          # null = tidak dibatasi
+    min_samples_split: 5
+    random_state: 42
+    n_jobs: -1
+  svr:
+    kernel: "rbf"
+    C: 1.0
+    epsilon: 0.1
+  linear_regression: {}     # menggunakan default sklearn
+
+output:
+  model_path: "models/random_forest_v1.pkl"
+  figures_dir: "outputs/figures/"
+  reports_dir: "outputs/reports/"
+
+logging:
+  level: "INFO"
